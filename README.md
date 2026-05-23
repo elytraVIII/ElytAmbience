@@ -15,6 +15,13 @@
 
 ### 📦 Installation
 
+#### From Binary (Recommended for GhostBSD/FreeBSD)
+Download the latest `.pkg` from the [Releases](https://github.com/elytraVIII/ElytAmbience/releases) page and install it using:
+```bash
+sudo pkg install ./elytambiance-0.1.9.pkg
+```
+
+#### From Source
 Ensure you have the build dependencies installed (`meson`, `ninja`, `python3.11`, `py311-gobject3`, `gstreamer1-plugins-good`).
 
 ```bash
