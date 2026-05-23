@@ -2,6 +2,8 @@
 
 **ElytAmbience** is a native ambient sound generator built for the BSD desktop. It is a high-performance rewrite of the popular [Blanket](https://github.com/rafaelmardojai/blanket) application, specifically optimized for **FreeBSD** and **GhostBSD**.
 
+![ElytAmbience Screenshot](screenshot.png)
+
 ---
 
 ### ✨ Features
