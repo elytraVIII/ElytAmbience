@@ -1,0 +1,15 @@
+#!@PYTHON@
+import os
+import sys
+import signal
+
+# Set package data directory
+os.environ['ELYTAMBIANCE_PKGDATADIR'] = '@pkgdatadir@'
+
+# Add module directory to path if not installed in standard location
+# @moduledir@ is handled by meson install, but we can add it here if needed.
+
+if __name__ == '__main__':
+    from elytambiance.main import main
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+    sys.exit(main())

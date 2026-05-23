@@ -1,0 +1,6 @@
+ElytAmbience is a native rewrite of the popular ambient sound concept,
+built specifically for FreeBSD and GhostBSD. It provides a simple
+GTK3 interface to play high-quality ambient sound loops with
+individual volume control and persistence.
+
+WWW: https://github.com/elytraVIII/ElytAmbience

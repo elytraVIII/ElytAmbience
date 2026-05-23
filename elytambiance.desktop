@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=ElytAmbience
+Comment=Listen to ambient sounds
+Exec=elytambiance
+Icon=elytambiance
+Terminal=false
+Type=Application
+Categories=AudioVideo;Audio;
+StartupNotify=true

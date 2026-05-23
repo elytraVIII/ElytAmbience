@@ -1,0 +1,24 @@
+<schemalist>
+  <schema id="org.elytlabs.elytambiance" path="/org/elytlabs/elytambiance/">
+    <key name="window-width" type="i">
+      <default>600</default>
+      <summary>Window width</summary>
+    </key>
+    <key name="window-height" type="i">
+      <default>450</default>
+      <summary>Window height</summary>
+    </key>
+    <key name="window-maximized" type="b">
+      <default>false</default>
+      <summary>Window maximized state</summary>
+    </key>
+    <key name="active-sounds" type="as">
+      <default>[]</default>
+      <summary>List of active sound slugs</summary>
+    </key>
+    <key name="sound-volumes" type="s">
+      <default>'{}'</default>
+      <summary>JSON string mapping sound slugs to volume levels</summary>
+    </key>
+  </schema>
+</schemalist>
