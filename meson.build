@@ -1,5 +1,5 @@
 project('elytambiance',
-  version: '0.2.0',
+  version: '0.3.0',
   meson_version: '>= 0.59.0',
 )
 
@@ -32,6 +32,7 @@ install_data([
     'elytambiance/main.py',
     'elytambiance/window.py',
     'elytambiance/player.py',
+    'elytambiance/mpris.py',
   ],
   install_dir: moduledir
 )

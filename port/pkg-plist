@@ -21,3 +21,4 @@ share/icons/hicolor/scalable/apps/elytambiance.svg
 %%PYTHON_SITELIBDIR%%/elytambiance/main.py
 %%PYTHON_SITELIBDIR%%/elytambiance/window.py
 %%PYTHON_SITELIBDIR%%/elytambiance/player.py
+%%PYTHON_SITELIBDIR%%/elytambiance/mpris.py

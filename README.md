@@ -2,7 +2,8 @@
 
 **ElytAmbience** is a native ambient sound generator built for the BSD desktop. It is a high-performance rewrite of the popular [Blanket](https://github.com/rafaelmardojai/blanket) application, specifically optimized for **FreeBSD** and **GhostBSD**.
 
-![ElytAmbience Screenshot](screenshot.png)
+![ElytAmbience Screenshot 1](screenshot1.png)
+![ElytAmbience Screenshot 2](screenshot2.png)
 
 ---
 
@@ -10,6 +11,9 @@
 *   **🚀 Native Performance:** Built using GTK3 and GStreamer for a lightweight, efficient experience.
 *   **🎧 Immersive Sounds:** Includes 14 atmospheric loops (Rain, Storm, City, etc.) with individual volume sliders.
 *   **💾 Persistence:** Automatically remembers your active sounds and volume levels between sessions.
+*   **📂 Presets:** Save, load, import, and export your favorite soundscapes easily.
+*   **⏲️ Sleep Timer:** Set a countdown timer to automatically pause playback, featuring a live countdown display.
+*   **🎵 MPRIS Integration:** Control playback via media keys, system applets, and D-Bus.
 *   **🎨 MATE Integration:** Designed to look and feel right at home on the MATE Desktop Environment.
 *   **📥 Background Playback:** Hides to the system tray so you can focus on your work while it plays.
 
@@ -24,7 +28,7 @@ sudo pkg add https://github.com/elytraVIII/ElytAmbience/releases/latest/download
 ```
 
 #### From Source
-Ensure you have the build dependencies installed (`meson`, `ninja`, `python3.11`, `py311-gobject3`, `gstreamer1-plugins-good`).
+Ensure you have the build dependencies installed (`meson`, `ninja`, `python3.11`, `py311-pygobject`, `gstreamer1-plugins-good`, `gstreamer1-plugins-ogg`, `gstreamer1-plugins-vorbis`).
 
 ```bash
 # Setup the build directory

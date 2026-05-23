@@ -20,5 +20,9 @@
       <default>'{}'</default>
       <summary>JSON string mapping sound slugs to volume levels</summary>
     </key>
+    <key name="presets" type="s">
+      <default>'{}'</default>
+      <summary>JSON string storing user-defined presets</summary>
+    </key>
   </schema>
 </schemalist>
