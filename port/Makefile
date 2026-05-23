@@ -1,12 +1,13 @@
 PORTNAME=	elytambiance
-DISTVERSION=	0.1.8
+DISTVERSION=	0.2.0
 CATEGORIES=	audio
 
 MAINTAINER=	elytraVIII@gmail.com
 COMMENT=	Ambient sound generator for GhostBSD
 WWW=		https://github.com/elytraVIII/ElytAmbience
 
-LICENSE=	GPLv3
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}gobject3>=0:devel/py-gobject3@${PY_FLAVOR} \
 		gstreamer1-plugins-good>=0:multimedia/gstreamer1-plugins-good

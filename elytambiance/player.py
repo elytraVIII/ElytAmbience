@@ -8,6 +8,7 @@ class AmbientPlayer:
         Gst.init(None)
         self.sounds_path = sounds_path
         self.players = {} # slug: {"playbin": Gst.Element, "active": bool, "volume": float}
+        self.is_playing = True
 
     def load_sound(self, filename: str):
         slug = filename.replace('.ogg', '')
@@ -33,8 +34,11 @@ class AmbientPlayer:
             return
             
         if state:
-            player_data["playbin"].set_state(Gst.State.PLAYING)
             player_data["active"] = True
+            if self.is_playing:
+                player_data["playbin"].set_state(Gst.State.PLAYING)
+            else:
+                player_data["playbin"].set_state(Gst.State.PAUSED)
         else:
             player_data["playbin"].set_state(Gst.State.NULL)
             player_data["active"] = False
@@ -46,9 +50,22 @@ class AmbientPlayer:
             player_data["volume"] = volume
 
     def stop_all(self):
+        self.is_playing = True
         for slug, data in self.players.items():
             data["playbin"].set_state(Gst.State.NULL)
             data["active"] = False
+
+    def pause(self):
+        self.is_playing = False
+        for slug, data in self.players.items():
+            if data["active"]:
+                data["playbin"].set_state(Gst.State.PAUSED)
+
+    def play(self):
+        self.is_playing = True
+        for slug, data in self.players.items():
+            if data["active"]:
+                data["playbin"].set_state(Gst.State.PLAYING)
 
     def _on_eos(self, bus, message):
         player = message.src

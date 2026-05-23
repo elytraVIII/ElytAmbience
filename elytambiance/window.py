@@ -35,6 +35,11 @@ class AmbientWindow(Gtk.ApplicationWindow):
         stop_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-stop-symbolic", Gtk.IconSize.BUTTON))
         stop_btn.connect("clicked", self.on_stop_all_clicked)
         hb.pack_start(stop_btn)
+        
+        self.play_pause_btn = Gtk.Button()
+        self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-pause-symbolic", Gtk.IconSize.BUTTON))
+        self.play_pause_btn.connect("clicked", self.on_play_pause_clicked)
+        hb.pack_start(self.play_pause_btn)
 
         scrolled = Gtk.ScrolledWindow()
         scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
@@ -130,8 +135,17 @@ class AmbientWindow(Gtk.ApplicationWindow):
         self.player.set_volume(slug, vol)
         self.save_state()
 
+    def on_play_pause_clicked(self, button):
+        if self.player.is_playing:
+            self.player.pause()
+            self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-start-symbolic", Gtk.IconSize.BUTTON))
+        else:
+            self.player.play()
+            self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-pause-symbolic", Gtk.IconSize.BUTTON))
+
     def on_stop_all_clicked(self, button):
         self.player.stop_all()
+        self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-pause-symbolic", Gtk.IconSize.BUTTON))
         for child in self.flowbox.get_children():
             box = child.get_child()
             if isinstance(box, Gtk.Box):

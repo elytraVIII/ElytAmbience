@@ -1,0 +1,29 @@
+name: "elytambiance"
+version: "0.2.0"
+origin: "audio/elytambiance"
+comment: "Ambient sound generator for GhostBSD/FreeBSD"
+desc: "Native ambient sound generator built for the BSD desktop. Optimized for FreeBSD and GhostBSD."
+maintainer: "elytraVIII@gmail.com"
+www: "https://github.com/elytraVIII/ElytAmbience"
+prefix: "/usr/local"
+categories: ["audio"]
+licenselogic: "single"
+licenses: ["MIT"]
+deps: {
+  python311: {
+    origin: "lang/python311",
+    version: "3.11"
+  },
+  py311-pygobject: {
+    origin: "devel/py-pygobject",
+    version: "3.54"
+  },
+  gstreamer1-plugins-good: {
+    origin: "multimedia/gstreamer1-plugins-good",
+    version: "1.24"
+  },
+  gtk3: {
+    origin: "x11-toolkits/gtk30",
+    version: "3.24"
+  }
+}

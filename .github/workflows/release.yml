@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-freebsd:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build FreeBSD Package
+        uses: vmactions/freebsd-vm@v1
+        with:
+          usesh: true
+          prepare: |
+            pkg install -y meson ninja python311 py311-pygobject gstreamer1-plugins-good gtk3 git
+          run: |
+            # Get version from meson.build
+            VERSION=$(grep "version:" meson.build | head -n1 | cut -d"'" -f2)
+            echo "Building version ${VERSION}"
+
+            # Setup and build
+            meson setup build --prefix=/usr/local
+            meson compile -C build
+
+            # Install to staging directory
+            mkdir -p staging
+            DESTDIR=$(pwd)/staging meson install -C build
+
+            # Prepare metadata
+            mkdir -p meta
+            cp packaging/+MANIFEST meta/+MANIFEST
+            sed -i "" "s/%%VERSION%%/${VERSION}/g" meta/+MANIFEST
+
+            # Generate plist with absolute paths (as seen in the package)
+            (cd staging && find usr/local -type f -o -type l | sed 's|^|/|') > meta/plist
+
+            # Create the package. 
+            # -r staging/ means pkg will look for /usr/local/bin/elytambiance at staging/usr/local/bin/elytambiance
+            pkg create -m meta/ -r staging/ -p meta/plist -o .
+            
+            # Rename for clarity
+            mv elytambiance-${VERSION}.pkg elytambiance-freebsd.pkg
+
+            # Create source tarball
+            git config --global safe.directory "*"
+            meson dist -C build
+            cp build/meson-dist/*.tar.xz .
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            *.pkg
+            *.tar.xz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

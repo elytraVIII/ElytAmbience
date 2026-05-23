@@ -18,9 +18,9 @@
 ### 📦 Installation
 
 #### From Binary (Recommended for GhostBSD/FreeBSD)
-Download the latest `.pkg` from the [Releases](https://github.com/elytraVIII/ElytAmbience/releases) page and install it using:
+Install the latest version using:
 ```bash
-sudo pkg install ./elytambiance-0.1.9.pkg
+sudo pkg add https://github.com/elytraVIII/ElytAmbience/releases/latest/download/elytambiance-freebsd.pkg
 ```
 
 #### From Source
