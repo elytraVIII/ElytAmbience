@@ -1,5 +1,5 @@
 name: "elytambiance"
-version: "0.3.0"
+version: "0.5.0"
 origin: "audio/elytambiance"
 comment: "Ambient sound generator for GhostBSD/FreeBSD"
 desc: "Native ambient sound generator built for the BSD desktop. Optimized for FreeBSD and GhostBSD."

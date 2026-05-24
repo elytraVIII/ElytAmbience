@@ -1,5 +1,5 @@
 PORTNAME=	elytambiance
-DISTVERSION=	0.3.0
+DISTVERSION=	0.5.0
 CATEGORIES=	audio
 
 MAINTAINER=	elytraVIII@gmail.com
