@@ -42,4 +42,13 @@ sudo meson install -C build
 ```
 
 ---
+
+### 📜 Credits & Licensing
+ElytAmbience is a rewrite of the [Blanket](https://github.com/rafaelmardojai/blanket) application by Rafael Mardojai CM and contributors. We are grateful for their work and for providing the high-quality sounds and icons used in this project.
+
+*   **Sounds:** See [SOUNDS_LICENSING.md](SOUNDS_LICENSING.md) for detailed attribution and licenses.
+*   **Icons:** Sourced from the Blanket project (GPL-3.0).
+*   **Contributing:** Want to add new sounds? Check out our [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
 *Developed by ElytLabs. Bringing essential tools to the BSD desktop.*
