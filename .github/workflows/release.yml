@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - beta
 
 jobs:
   build-freebsd:
@@ -53,11 +53,8 @@ jobs:
             meson dist -C build
             cp build/meson-dist/*.tar.xz .
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
-          files: |
-            *.pkg
-            *.tar.xz
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: elytambiance-freebsd-pkg
+          path: elytambiance-freebsd.pkg
