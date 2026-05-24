@@ -50,7 +50,7 @@ class AmbientPlayer:
             player_data["volume"] = volume
 
     def stop_all(self):
-        self.is_playing = True
+        self.is_playing = False
         for slug, data in self.players.items():
             data["playbin"].set_state(Gst.State.NULL)
             data["active"] = False
