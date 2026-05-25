@@ -45,9 +45,6 @@ jobs:
             # -r staging/ means pkg will look for /usr/local/bin/elytambiance at staging/usr/local/bin/elytambiance
             pkg create -m meta/ -r staging/ -p meta/plist -o .
             
-            # Rename for clarity
-            mv elytambiance-${VERSION}.pkg elytambiance-freebsd.pkg
-
             # Create source tarball
             git config --global safe.directory "*"
             meson dist -C build
