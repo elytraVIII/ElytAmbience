@@ -594,6 +594,12 @@ class AmbientWindow(Gtk.ApplicationWindow):
             
             if active:
                 self.player.toggle_sound(slug, True)
+        
+        # Update button to match actual playing state
+        if any(data["active"] for data in self.player.players.values()):
+            self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-pause-symbolic", Gtk.IconSize.BUTTON))
+            self.play_pause_btn.set_label("_Pause")
+        
         self.show_all()
 
     def create_sound_card(self, name, slug, active, volume):
