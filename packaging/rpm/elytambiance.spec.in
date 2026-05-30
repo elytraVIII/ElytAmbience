@@ -1,0 +1,27 @@
+Name:           elytambiance
+Version:        %%VERSION%%
+Release:        1
+Summary:        Native ambient sound generator built for the BSD desktop
+License:        GPLv3
+URL:            https://github.com/elytraVIII/ElytAmbience
+BuildArch:      noarch
+Requires:       python3, python3-gobject, gtk3, gstreamer1-plugins-good
+
+%description
+Native ambient sound generator built for the BSD desktop. Optimized for FreeBSD and GhostBSD.
+
+%install
+mkdir -p %{buildroot}
+cp -a %%STAGING_DIR%%/* %{buildroot}/
+
+%files
+/usr/bin/elytambiance
+/usr/share/elytambiance/
+/usr/share/applications/elytambiance.desktop
+/usr/share/icons/hicolor/scalable/apps/elytambiance.svg
+/usr/share/glib-2.0/schemas/org.elytlabs.elytambiance.gschema.xml
+/usr/lib/python*/*-packages/elytambiance/
+
+%changelog
+* Sat May 30 2026 elytraVIII <elytraVIII@gmail.com> - %%VERSION%%-1
+- Release %%VERSION%%

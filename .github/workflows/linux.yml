@@ -1,0 +1,55 @@
+name: Linux Build
+
+on:
+  push:
+    branches:
+      - beta
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - beta
+      - main
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y meson ninja-build python3 rpm dpkg-dev libglib2.0-dev libglib2.0-bin
+
+      - name: Build Debian and RPM packages
+        run: |
+          # Build Debian package
+          ./packaging/build-deb.sh
+
+          # Build RPM package
+          ./packaging/build-rpm.sh
+
+      - name: Upload Debian package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: elytambiance-deb
+          path: "*.deb"
+
+      - name: Upload RPM package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: elytambiance-rpm
+          path: "*.rpm"
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            *.deb
+            *.rpm
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
