@@ -44,7 +44,7 @@ class AmbientWindow(Gtk.ApplicationWindow):
         hb.pack_start(stop_btn)
         
         self.play_pause_btn = Gtk.Button(label="_Play", use_underline=True)
-        self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-pause-symbolic", Gtk.IconSize.BUTTON))
+        self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-start-symbolic", Gtk.IconSize.BUTTON))
         self.play_pause_btn.set_always_show_image(True)
         self.play_pause_btn.set_tooltip_text("Play/Pause (Alt+P)")
         self.play_pause_btn.connect("clicked", self.on_play_pause_clicked)
@@ -562,8 +562,7 @@ class AmbientWindow(Gtk.ApplicationWindow):
 
     def on_sleep_timer_timeout(self):
         self.player.pause()
-        self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-start-symbolic", Gtk.IconSize.BUTTON))
-        self.play_pause_btn.set_label("_Play")
+        self.update_play_pause_button()
         self.sleep_timer_id = None
         self.timer_label.hide()
         self.timer_btn.set_tooltip_text("Sleep Timer")
@@ -596,9 +595,7 @@ class AmbientWindow(Gtk.ApplicationWindow):
                 self.player.toggle_sound(slug, True)
         
         # Update button to match actual playing state
-        if any(data["active"] for data in self.player.players.values()):
-            self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-pause-symbolic", Gtk.IconSize.BUTTON))
-            self.play_pause_btn.set_label("_Pause")
+        self.update_play_pause_button()
         
         self.show_all()
 
@@ -640,6 +637,7 @@ class AmbientWindow(Gtk.ApplicationWindow):
     def on_toggle_clicked(self, switch, state, slug):
         self.player.toggle_sound(slug, state)
         self.save_state()
+        self.update_play_pause_button()
         return False
 
     def on_volume_changed(self, scale, slug):
@@ -647,20 +645,23 @@ class AmbientWindow(Gtk.ApplicationWindow):
         self.player.set_volume(slug, vol)
         self.save_state()
 
+    def update_play_pause_button(self):
+        if self.player.is_playing and any(data["active"] for data in self.player.players.values()):
+            self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-pause-symbolic", Gtk.IconSize.BUTTON))
+            self.play_pause_btn.set_label("_Pause")
+        else:
+            self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-start-symbolic", Gtk.IconSize.BUTTON))
+            self.play_pause_btn.set_label("_Play")
+
     def on_play_pause_clicked(self, button):
         if self.player.is_playing:
             self.player.pause()
-            self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-start-symbolic", Gtk.IconSize.BUTTON))
-            self.play_pause_btn.set_label("_Play")
         else:
             self.player.play()
-            self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-pause-symbolic", Gtk.IconSize.BUTTON))
-            self.play_pause_btn.set_label("_Pause")
+        self.update_play_pause_button()
 
     def on_stop_all_clicked(self, button):
         self.player.stop_all()
-        self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-start-symbolic", Gtk.IconSize.BUTTON))
-        self.play_pause_btn.set_label("_Play")
         for child in self.flowbox.get_children():
             box = child.get_child()
             if isinstance(box, Gtk.Box):
@@ -668,12 +669,11 @@ class AmbientWindow(Gtk.ApplicationWindow):
                 if isinstance(switch, Gtk.Switch):
                     switch.set_active(False)
         self.save_state()
+        self.update_play_pause_button()
 
     def apply_preset(self, active_sounds, volumes):
         self.player.stop_all()
         self.player.is_playing = True
-        self.play_pause_btn.set_image(Gtk.Image.new_from_icon_name("media-playback-pause-symbolic", Gtk.IconSize.BUTTON))
-        self.play_pause_btn.set_label("_Pause")
         
         for child in self.flowbox.get_children():
             box = child.get_child()
@@ -692,6 +692,7 @@ class AmbientWindow(Gtk.ApplicationWindow):
             if active:
                 self.player.toggle_sound(slug, True)
         self.save_state()
+        self.update_play_pause_button()
 
     def save_state(self):
         active = []
